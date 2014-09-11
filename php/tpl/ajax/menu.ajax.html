@@ -1,0 +1,32 @@
+<script>
+    $(function(){
+        $('#menu ul li').hover(
+            function() {
+                if ($(this).find('ul').length == 0) {
+                    var file = $(this).data('file');
+                    var li = $(this);
+                    $.ajax({
+                        url: 'ajax/'+file+'.html',
+                        beforeSend: function(){
+                             li.addClass('loading');
+                        },
+                        success: function(data){
+                             li.append(data);
+                             li.find('ul').stop(true, true);
+                             li.find('ul').slideDown();
+                             li.removeClass('loading');
+                        }
+                    });
+                } else {
+                    $(this).find('ul').stop(true, true);
+                    $(this).find('ul').slideDown();
+                }
+                $(this).addClass("active");
+            },
+            function() {
+                $(this).find('ul').slideUp('fast');
+                $(this).removeClass("active");
+            }
+        );
+    });
+</script>

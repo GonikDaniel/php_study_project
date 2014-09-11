@@ -1,0 +1,268 @@
+body {
+	font-family: 'Jura', sans-serif;
+	width: 768px;
+	margin: 20px auto 100px;
+	line-height: 1.3;
+}
+
+#login_form {
+	margin: 200px;
+}
+
+.items {
+	margin: 30px 0;
+}
+
+.article {
+	margin: 30px 0;
+}
+
+.homework1, .homework2, .homework3, .homework4, .homework5, .homework6, .homework7, .homework8 {
+	margin-top: 100px;
+}
+
+table {
+	border: 1px solid #ccc;
+	vertical-align: middle;
+	text-align: center;
+	margin: 20px 0;
+}
+
+table td, table th {
+	border: 1px solid #ccc;
+	padding: 20px 0;
+}
+
+input[type="text"] {
+	width: 100px;
+	border: 2px solid #DF8026;
+}
+
+#registr_form {
+	text-align: right;
+	margin-left: 200px;
+}
+
+#registr_form table {
+	border: none;
+	text-align: center;
+}
+
+#registr_form td {
+	border: none;
+	vertical-align: middle;
+	padding: 10px;
+}
+
+#registr_form input {
+	border: 1px solid #ccc;
+	width: 100px;
+}
+
+
+#style_form {
+	margin: 100px;
+}
+
+.personal_style {
+	background: url('../img/menu.png') no-repeat;
+	height: 20px;
+	margin: 12px;
+	float: right;
+	margin: 0 -100px;
+}
+
+.dop_menu {
+	margin: 0 -90px;
+}
+
+#menu {
+	border-bottom: 1px solid #e8e8e8;
+	padding-top: 7px 0;
+	position: fixed;
+	top: 0;
+	min-width: 800px;
+}
+
+#menu ul li {
+	display: inline;
+    /*float: left;*/
+    position:relative;
+    width:140px;
+    padding: 0 30px;
+}
+#menu li a{
+    display: block;
+    padding:10px 10px 10px 30px;
+    color: #DF8026; 
+    font: 12px arial;
+    text-decoration: none;
+    background: #fff;
+}
+#menu ul li li a:hover{
+    color: #DF5538;
+    background: #fcfcfc;
+}
+
+#menu ul ul {
+    display: none;
+    position:absolute;
+    top:18px;
+    padding: 20px 0;
+}
+
+#menu li li {
+    display:block;
+    border-top:0;
+}
+.active {
+    /*background-color:#eee;*/
+}
+
+#articles_sub_menu {
+	padding-top: 7px 0;
+	margin: 50px 0;	
+}
+
+#articles_sub_menu ul{ margin: 0 30px 0 0px;}
+
+#articles_sub_menu li{ margin: 15px 10px; display: inline-block;}
+
+#articles_sub_menu li>a{ color: #DF8026; font: 12px arial; text-decoration: none;}
+
+
+a.gallery {
+	text-decoration: none;
+	color: #DF8026;
+	font: 18px 'Jura', sans-serif;
+	display: block;
+	float: left;
+}
+
+.gallery_img {
+	margin: 0 20px 20px 0;
+	float: left;
+}
+
+.item2 {
+	clear: both;
+}
+
+.gallery_input {
+	padding: 7px;
+	box-shadow: 0 0 5px #52BAD5 inset;
+	border-radius: 20px;
+}
+
+.gallery_input:hover {
+	background: #F4F4F4;
+}
+
+#switch, #item1_results_button, #item4_results_button, #item5_results_button, 
+#item6_results_button, .gallery_button {
+	padding: 7px;
+	margin: 15px 0;
+	background: #DF8026;
+	text-align: center;
+	border-radius: 20px;
+	width: 150px;
+	outline: none;
+}
+
+#switch:hover, #item1_results_button:hover, #item4_results_button:hover, #item5_results_button:hover, 
+#item6_results_button:hover, .gallery_button:hover {
+	background: #DF1526;
+}
+
+.not_available, .item1_results, .item4_results, .switch_results, .item5_results, .item6_results {
+	padding: 10px 0;
+	color: #52BAD5;
+	font-size: 22px;
+}
+
+.hw6_gallery img {
+	width: 250px;
+	margin: 10px 0;
+	border-radius: 40px;
+}
+
+#flb-close {
+	width: 25px !important;
+	height: 25px !important;
+	margin-left: 382px;
+}
+
+#hw7_gallery {
+	font-size: 12px;
+}
+
+#hw7_gallery img:hover {
+	cursor: pointer;
+}
+
+#hw7_gallery .img_item {
+	float: left;
+}
+
+#hw7_gallery .views {
+	background: url('../php/lesson7/hw7/img/views.png') no-repeat;
+	width: 20px;
+	height: 20px;
+	display: inline-block;
+	margin: 0 0 0 90px;
+	cursor: pointer;
+}
+
+
+#hw7_gallery .likes {
+	background: url('../php/lesson7/hw7/img/лайка.gif') no-repeat;
+	width: 20px;
+	height: 20px;
+	display: inline-block;
+	margin: 0 0 0 20px;
+	cursor: pointer;
+}
+
+#hw7_full_image {
+	margin: 20px auto;
+}
+
+#hw7_full_size_show {
+	  position:relative;
+	  display: none;
+	  background-color:#fff;
+	  width:700px;
+	  padding:12px;
+	  height:500px;
+	  margin:100px auto;
+	  border:red solid 1px;
+}
+.hw7_wrapper {
+	 display: none;
+	 top:0;
+	 left:0;
+	 position:fixed;
+	 background-color:#ccc;
+	 opacity: 0.74;
+	 width:100%;
+	 height:100%;
+	 z-index:10000;
+}
+
+.footer {
+	opacity: .3;
+	background: white;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  text-align: center;
+  font-size: 60px;
+  color: rgba(44, 62, 80, 0.2);
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 800;
+  letter-spacing: -2px;
+}
+
+.footer:hover {
+	opacity: 1;
+}
+
