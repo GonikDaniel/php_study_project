@@ -6,6 +6,8 @@
 
 Simple realization of MVC pattern, using Articles as a base idea of project.
 
+You can see it working [here](http://study.igonik.ru/php_project/php) as well. But it need a bit of work still. So password in personal contacts;)
+
 ## Requirements ##
 
 - PHP 5.2.x or higher
