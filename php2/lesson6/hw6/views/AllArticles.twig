@@ -1,0 +1,9 @@
+{% include 'header.php' %}
+	{% for item in template %}
+		<div class="article">
+			<h2>{{ item.title }}</h2>
+			<p>{{ item.content }}</p>
+			<p>{{ item.posted_date }}</p>
+		</div>
+	{% endfor %}
+{% include 'footer.php' %}

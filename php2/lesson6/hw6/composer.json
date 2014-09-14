@@ -1,0 +1,22 @@
+{
+    "name": "igonik/php_study_project",
+    "require": {
+        "php": ">=5.4.0",
+        "yiisoft/yii": "dev-master",
+        "twig/twig": ">=1.8,<2.0-dev",
+        "swiftmailer/swiftmailer": "dev-master",
+        "mycompany/superlogger":"dev-master"
+    },
+    "repositories":[
+        {
+            "type":"git",
+            "url":"http://github.com/pqr/superlogger"
+        }
+    ],
+    "authors": [
+        {
+            "name": "Gonik Daniel",
+            "email": "gonik.daniel88@gmail.com"
+        }
+    ]
+}

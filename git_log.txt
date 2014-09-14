@@ -1,0 +1,23 @@
+[33mcommit b7c72af60f1fabab468b57d9ef63f0d92f203462[m
+Author: Gonik Daniel <gonik.daniel88@gmail.com>
+Date:   Thu Sep 11 23:17:53 2014 +0400
+
+    Changed a description
+
+[33mcommit 0cba754b4d781fb84bdcc951fc8bb16808e260ff[m
+Author: Gonik Daniel <gonik.daniel88@gmail.com>
+Date:   Thu Sep 11 23:05:54 2014 +0400
+
+    Added a description
+
+[33mcommit 4b2c5ba66ccce79cb88d80803e3435752b46860a[m
+Author: Gonik Daniel <gonik.daniel88@gmail.com>
+Date:   Thu Sep 11 22:45:28 2014 +0400
+
+    Added files project
+
+[33mcommit 4ee3783403be65238f8a9000bfdffe035bf8a662[m
+Author: GonikDaniel <GonikDaniel@users.noreply.github.com>
+Date:   Thu Sep 11 22:41:43 2014 +0400
+
+    Initial commit

@@ -1,4 +1,4 @@
-<form action="../Articles/added" method="post">
+<form action="../Articles/add" method="post">
 		<label for="title">Заголовок:</label>
 		<input type="text" id="title" name="title" value="<?php if(!empty($title)) echo $title; ?>" style="resize: horizontal; width: 200px;"><br>
 

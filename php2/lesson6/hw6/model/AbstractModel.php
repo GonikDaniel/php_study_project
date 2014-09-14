@@ -48,117 +48,97 @@ abstract class AbstractModel
 	//выбираем одну из статей по id
 	static public function findOne($id)
 	{
-		try {
-			$sql = "SELECT * FROM " . static::$table . " WHERE `id` = ? LIMIT 1";
-			$sth = self::getDbh()->prepare($sql);
-			$sth->bindParam(1, $id);
-			$sth->execute();
-			$sth->setFetchMode(PDO::FETCH_CLASS, get_called_class());
-			
-			$result = $sth->fetch();
-			$result->isNew = false;
+		$sql = "SELECT * FROM " . static::$table . " WHERE `id` = ? LIMIT 1";
+		$sth = self::getDbh()->prepare($sql);
+		$sth->bindParam(1, $id);
+		$sth->execute();
+		$sth->setFetchMode(PDO::FETCH_CLASS, get_called_class());
+		
+		$result = $sth->fetch();
+		$result->isNew = false;
+		$rows = $sth->rowCount();
+		if ($rows === 0) {
+			throw new Exception("Статьи уже удалена (либо ее никогда и не было вовсе)");
+		} else {
 			return $result;
-		}
-		catch (PDOException $e) {
-		    echo $e->getMessage();
 		}
 	}
 
-
+	// в зависимости от того новая у нас статья или мы ее редактируем выбираем один из двух
+	// путей, используя флаг isNew
 	public function save()
 	{
 		if ($this->isNew) {
+			// После окончания процедуры валидации проверяем были ли занесены какие-то сообщения об ошибках. Если да то «бросаем» подготовленный объект исключения.
+			// Для отлова исключения используем два блока catch: для FormFieldsListException и для всех остальных исключений. Это позволяет задать различные виды действий при возникновении различных типов исключений.
+			function validateForm($title, $content) {
+			   $e = new FormFieldsListException();
+			   if (strlen($title) < 5) {
+			      $e[] = 'Слишком короткий заголовок!';
+			   }
+			   if (strlen($content) < 100) {
+			      $e[] = 'Слишком короткое содержание!';
+			   }
+			   if ((bool)$e->current()) {
+			      throw $e;
+			   }
+			}
+			 
+			try {
+			  // validateForm($this->title, $this->content);
+			}
+			catch (FormFieldsListException $error) {
+			   	echo '<b>Что-то пошло не так...</b>:<br />';
+			   	foreach ($error as $e) {
+			    	echo $e.'<br />';
+			    	$error::logWriter($e);
+			   	}
+			   	die('<a href="../Articles/new">Попробуйте заново, сэр!</a>');
+			}
+			catch (Exception $error) {
+			   echo 'Not validation error! '.$error->getMessage();
+			}
+			foreach (static::$cols as $col) {
+				$data[':' . $col] = $this->{$col};
+			}
+
 			$sql = "INSERT 
-					INTO " . static::$table . "
-					 (title, content) 
-					 VALUES (:title, :content)";
+					INTO " . static::$table . " (" .
+					implode(', ', static::$cols) . 
+					") VALUES (:" . implode(', :', static::$cols) . ")";
 			$dbh = self::getDbh();
 			$sth = $dbh->prepare($sql);
-			$sth->execute(array(
-					':title' => $this->title, 
-					':content' => $this->content,
-			));
+			$sth->execute($data);
 			$this->isNew = false;
 			$this->id = $dbh->lastInsertId();
 		} else {
+			foreach (static::$cols as $col) {
+				$data[':' . $col] = $this->{$col};
+				$columns[] = $col . '=:' . $col;
+			}
+			$data[':id'] = $this->id;
 			$sql = "UPDATE 
 					" . static::$table . "
-					 SET title=:title, content=:content 
-					 WHERE id=:id";
+					 SET " . implode(', ', $columns) .
+					 " WHERE id=:id";
 			$dbh = self::getDbh();
 			$sth = $dbh->prepare($sql);
-			$sth->execute(array(
-					':title' => $this->title, 
-					':content' => $this->content,
-					':id' => $this->id,
-			));
+			$sth->execute($data);
 		}
 	}
 
 	//удаляем статью
-	static public function delete()
+	public function delete()
 	{
-		if ($this->isDeleted) {
-			throw new Exception("Статьи уже удалена (либо ее никогда и не было вовсе)");
-		} else {
-			$sth = self::getDbh()->prepare("DELETE FROM " . static::$table . " WHERE id = ?");
-			$sth->execute(array(
-					':id' => $this->id,
-			));
-		}
-	}
-
-	//добавляем статью
-	static public function add($title, $content)
-	{
-		// После окончания процедуры валидации проверяем были ли занесены какие-то сообщения об ошибках. Если да то «бросаем» подготовленный объект исключения.
-		// Для отлова исключения используем два блока catch: для FormFieldsListException и для всех остальных исключений. Это позволяет задать различные виды действий при возникновении различных типов исключений.
-		function validateForm($title, $content) {
-		   $e = new FormFieldsListException();
-		   if (strlen($title) < 5) {
-		      $e[] = 'Слишком короткий заголовок!';
-		   }
-		   if (strlen($content) < 100) {
-		      $e[] = 'Слишком короткое содержание!';
-		   }
-		   if ((bool)$e->current()) {
-		      throw $e;
-		   }
-		}
-		 
-		try {
-		   validateForm($title, $content);
-		}
-		catch (FormFieldsListException $error) {
-		   	echo '<b>Что-то пошло не так...</b>:<br />';
-		   	foreach ($error as $e) {
-		    	echo $e.'<br />';
-		    	$error::logWriter($e);
-		   	}
-		   	die('<a href="../Articles/new">Попробуйте заново, сэр!</a>');
-		}
-		catch (Exception $error) {
-		   echo 'Not validation error! '.$error->getMessage();
-		}
-		$sth = self::getDbh()->prepare('INSERT INTO ' . static::$table . ' (`title`, `content`) VALUES (:title, :content)');
-		$sth->bindParam(':title', $title);
-		$sth->bindParam(':content', $content);
-		$sth->execute();
-	}
-
-
-	//редактируем
-	static public function edit($id, $title, $content)
-	{
-		try {
-			$sth = self::getDbh()->prepare('UPDATE ' . static::$table . ' SET `title`=:title, `content` = :content WHERE `id` = :id');
-			$sth->bindParam(':title', $title);
-			$sth->bindParam(':content', $content);
-			$sth->bindParam(':id', $id);
+		if (!empty($this->id)) {
+			$sql = "DELETE FROM " . static::$table . " WHERE id = :id";
+			$dbh = self::getDbh();
+			$sth = $dbh->prepare($sql);
+			$sth->bindParam(':id', $this->id);
 			$sth->execute();
-		}
-		catch (PDOException $e) {
-		    echo $e->getMessage();
+			$this->isDeleted = true;
+		} else {
+			throw new Exception("Статьи уже удалена (либо ее никогда и не было вовсе)");
 		}
 	}
 

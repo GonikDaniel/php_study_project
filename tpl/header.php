@@ -52,7 +52,7 @@
 </div>
 <?php 
 	$php_level = explode('/', $_SERVER['REQUEST_URI']);
-	$current_php_level = $php_level[3];
+	$current_php_level = $php_level[4];
 	if ($current_php_level == 'php2'):
 ?>
 

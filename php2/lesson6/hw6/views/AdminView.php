@@ -1,5 +1,5 @@
 <table>
-    <?php foreach ($all_articles as $article): ?>
+    <?php foreach ($this->all_articles as $article): ?>
         <tr class="article">
         	<td><strong><?php echo $article->title; ?></strong></td>
             <td><?php echo substr($article->content, 0, 300); ?>...</td>

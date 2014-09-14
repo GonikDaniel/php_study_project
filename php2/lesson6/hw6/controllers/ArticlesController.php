@@ -5,17 +5,28 @@ class ArticlesController extends AbstractController
 	protected function allAction()
 	{
 		$all_articles = ArticlesModel::findAll();
-		$view = new View;
-		$view->items = $all_articles;
-		$view->display('AllArticles.php');
+		try {
+			$twig = new TwigClass('AllArticles.twig');
+			$twig->display($all_articles);
+		} catch (Twig_Error $e) {
+			echo $e->getMessage();
+		}
 	}
 
 	protected function oneAction($id)
 	{
-		$single_article = ArticlesModel::findOne($id);
-		$view = new View;
-		$view->item = $single_article;
-		$view->display('SingleArticle.php');
+		try {
+			$single_article = ArticlesModel::findOne($id);
+			$twig = new TwigClass('SingleArticle.twig');
+			$twig->display($single_article);
+			// var_dump($single_article);
+		} catch (Twig_Error $e) {
+			echo $e->getMessage();
+		} catch (Exception $e) {
+			// echo $e->getMessage();
+			$view = new ErrorController;
+			$view->error();
+		}
 	}
 
 	protected function newAction()
@@ -24,22 +35,22 @@ class ArticlesController extends AbstractController
 		$view->display('NewArticle.php');
 	}
 
-	protected function addedAction()
+	protected function addAction()
 	{	
 		if ('' !== $_POST['title'] && '' !== $_POST['content']) {
 			$article = new ArticlesModel();
 			$article->title = htmlspecialchars($_POST['title']);
 			$article->content = htmlspecialchars($_POST['content']);
 			$article->save();
-			// ArticlesModel::add($title, $content);
-			$view = new View;
-			$view->title = $article->title;
-			$view->content = $article->content;
-			$view->display('NewAddedArticle.php');
-			echo "Вы успешно добавили статью. ";
-			echo "Хотите опубликовать <a href='../Articles/new'>еще одну</a>?";
+			header('Location: ../Articles/added');
 		} else {
 			echo '<p>Вы не заполнили поля заголовка и/или контента.</p>';
 		}
+	}
+
+	protected function addedAction()
+	{	
+		$view = new View;
+		$view->display('NewAddedArticle.php');
 	}
 }

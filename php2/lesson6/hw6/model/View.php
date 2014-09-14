@@ -9,7 +9,9 @@ class View
 		foreach ($this as $key => $value) {
 			$$key = $value;
 		}
+		include __DIR__ . '/../../../../tpl/header.php';
 		include __DIR__ . '/../views/' . $template;
+		include __DIR__ . '/../../../../tpl/footer.php';
 	}
 
 	//отсюда начинается магия с сетом и гетом + реализация интерфейса Iterator

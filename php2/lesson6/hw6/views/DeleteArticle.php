@@ -4,7 +4,7 @@
 	<p><?php echo $single_article->content; ?></p>
 	<p><?php echo $single_article->posted_date; ?></p>
 	<form action="../../Admin/delete" method="post">
-		<input type="hidden" name="id" value="<?php echo $id; ?>">
+		<input type="hidden" name="id" value="<?php echo $single_article->id; ?>">
 		<p><input type="submit" value="Удалить" name="submit"></p>
 	</form>
 </div>

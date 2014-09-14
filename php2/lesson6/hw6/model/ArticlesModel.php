@@ -3,7 +3,10 @@
 class ArticlesModel
 	extends AbstractModel
 {
-	static public $table = 'articles';
+	static protected $table = 'articles';
+	static public $cols = ['title', 'content'];
+	public $title;
+	public $content;
 }
 
 ?>
